@@ -34,7 +34,7 @@ int	findGreatestConsecutive(int a[], int len)
 }
 
 
-long int sumOfPrime( int n )
+long int sumOfPrime(long int n )
 {
 	long int sum = 0;
 	int flag ,a,b;
@@ -79,5 +79,5 @@ void main()
 	else
 		std::cout<<"Not found!"<<std::endl;*/
 
-	std::cout<<sumOfPrime(2000000)<<std::endl;
+	std::cout<<sumOfPrime((long int)2000000)<<std::endl;
 }
