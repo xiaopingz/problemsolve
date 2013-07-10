@@ -59,9 +59,39 @@ long int sumOfPrime(long int n )
 	return sum;
 }
 
+int primeNumber(int n)
+{
+	int		count = 0;	//第几个素数，要求第n个素数是多少
+	int		prime = 0;
+	int		flag = 1;
+	int		a = 2, b, m;
+	m = sqrt( (double)a);
+	
+	while( count<n )
+	{
+		flag = 1;
+		for( b=2; b<=m ;b++ )
+		{
+			if( a%b == 0 )
+			{
+				flag	=	0;
+				break;
+			}
+		}
+		if( flag )
+		{
+			count++;
+			prime = a;
+		}
+		a++;
+		m = sqrt( (double)a);
+	}
+	return prime;
+}
+
 void main()
 {
-	//findGreatestConsecutive
+	//8.findGreatestConsecutive
 	/*int		a[1000], i=0, pos;
 	std::ifstream file("digits.txt");
 	char	c;
@@ -79,5 +109,28 @@ void main()
 	else
 		std::cout<<"Not found!"<<std::endl;*/
 
-	std::cout<<sumOfPrime((long int)2000000)<<std::endl;
+	//10.
+	/*std::cout<<sumOfPrime((long int)2000000)<<std::endl;*/
+
+	//7.	
+	/*int n = 10001;
+	int m = primeNumber(n);
+	std::cout<<m<<std::endl;*/
+
+	//9.
+	int a, b, c;
+
+	for( a=1;a<500;++a )
+	{
+		for( b=1; b<500;++b )
+		{
+			c = 1000-a-b;
+
+			if( (a*a + b*b) == c*c)
+			{
+				std::cout<<a<<" "<<b<<" "<<c<<std::endl;
+				return;
+			}
+		}
+	}
 }
