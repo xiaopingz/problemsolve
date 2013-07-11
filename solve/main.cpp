@@ -73,6 +73,34 @@ int primeNumber(int n)
 	return prime;
 }
 
+int	greatestProduct(int **a, int n)
+{
+	int pro = 0, proTmp = 0;
+	int i,j;
+	for( i=0;i<n-4;++i )
+	{
+		for( j=0;j<n-4;++j )
+		{
+			proTmp	=	a[i][j] * a[i][j+1] * a[i][j+2] * a[i][j+3];
+			if( proTmp>pro )
+			{
+				pro	=	proTmp;
+			}
+			proTmp	=	a[i][j] * a[i+1][j] * a[i+2][j] * a[i+3][j];
+			if( proTmp>pro )
+			{
+				pro	=	proTmp;
+			}
+			proTmp	=	a[i][j] * a[i+1][j+1] * a[i+2][j+2] * a[i+3][j+3];
+			if( proTmp>pro )
+			{
+				pro	=	proTmp;
+			}
+		}
+	}
+	return	pro;
+}
+
 void main()
 {
 	//8.findGreatestConsecutive
@@ -91,7 +119,7 @@ void main()
 	std::cout<<res<<std::endl;*/
 
 	//10.
-	std::cout<<sumOfPrime((long int)2000000)<<std::endl;
+	/*std::cout<<sumOfPrime((long int)2000000)<<std::endl;*/
 
 	//7.	
 	/*int n = 10001;
@@ -114,4 +142,22 @@ void main()
 			}
 		}
 	}*/
+
+	//11.
+	int		**a, res;
+	a	=	(int **)malloc(400*sizeof(int));
+	std::ifstream file("digits11.txt");
+	int		c;
+
+	for( int i=0;i<20;++i )
+	{
+		for( int j=0;j<20;++j )
+		{
+			file>>c;
+			a[i][j]	== c;
+		}
+	}
+
+	res = greatestProduct(a,20);
+	std::cout<<res<<std::endl;
 }
