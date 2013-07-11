@@ -4,33 +4,17 @@
 
 int	findGreatestConsecutive(int a[], int len)
 {
-	int	i, pos=0, posTmp=0,flag=0;
+	int	i, pro=0;
 
 	for( i=0;i<len-4;++i )
 	{
-		if( a[i+1]==a[i]+1 && a[i+2]==a[i]+2 && a[i+3]==a[i]+3 && a[i+4]==a[i]+4 )
+		int product = a[i+1]*a[i]*a[i+2]*a[i+3]*a[i+4];
+		if( product>pro )
 		{
-			posTmp = i;
-			if( a[posTmp+4] > a[pos] )
-			{
-				pos = posTmp;
-				flag = 1;
-			}
-			i = i+3;
-		}
-		else if( a[i+1]==a[i]-1 && a[i+2]==a[i]-2 && a[i+3]==a[i]-3 && a[i+4]==a[i]-4 )
-		{
-			posTmp = i;
-			if( a[posTmp] > a[pos] )
-			{
-				pos = posTmp;
-				flag = 1;
-			}
+			pro	=	product;
 		}
 	}
-	if( flag )
-		return pos;
-	else return -1;
+	return pro;
 }
 
 
@@ -92,7 +76,7 @@ int primeNumber(int n)
 void main()
 {
 	//8.findGreatestConsecutive
-	/*int		a[1000], i=0, pos;
+	int		a[1000], i=0, res;
 	std::ifstream file("digits.txt");
 	char	c;
 
@@ -103,11 +87,8 @@ void main()
 		++i;
 	}
 
-	pos = findGreatestConsecutive(a,1000);
-	if( pos!=-1 )
-		std::cout<<a[pos]<<a[pos+1]<<a[pos+2]<<a[pos+3]<<a[pos+4];
-	else
-		std::cout<<"Not found!"<<std::endl;*/
+	res = findGreatestConsecutive(a,1000);
+	std::cout<<res<<std::endl;
 
 	//10.
 	/*std::cout<<sumOfPrime((long int)2000000)<<std::endl;*/
@@ -118,7 +99,7 @@ void main()
 	std::cout<<m<<std::endl;*/
 
 	//9.
-	int a, b, c;
+	/*int a, b, c;
 
 	for( a=1;a<500;++a )
 	{
@@ -132,5 +113,5 @@ void main()
 				return;
 			}
 		}
-	}
+	}*/
 }
