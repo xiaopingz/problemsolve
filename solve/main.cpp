@@ -18,9 +18,9 @@ int	findGreatestConsecutive(int a[], int len)
 }
 
 
-long int sumOfPrime(long int n )
+long long int sumOfPrime(long int n )
 {
-	long int sum = 0;
+	long long int sum = 0;	//类型很重要
 	int flag ,a,b;
 	
 	for( int i=2;i<n;++i )
@@ -76,7 +76,7 @@ int primeNumber(int n)
 void main()
 {
 	//8.findGreatestConsecutive
-	int		a[1000], i=0, res;
+	/*int		a[1000], i=0, res;
 	std::ifstream file("digits.txt");
 	char	c;
 
@@ -88,10 +88,10 @@ void main()
 	}
 
 	res = findGreatestConsecutive(a,1000);
-	std::cout<<res<<std::endl;
+	std::cout<<res<<std::endl;*/
 
 	//10.
-	/*std::cout<<sumOfPrime((long int)2000000)<<std::endl;*/
+	std::cout<<sumOfPrime((long int)2000000)<<std::endl;
 
 	//7.	
 	/*int n = 10001;
