@@ -101,6 +101,37 @@ int	greatestProduct(int **a, int n)
 	return	pro;
 }
 
+int divisorNum(int n)
+{
+	int count=0;
+	for( int i=1;i<=n;++i )
+	{
+		if( n%i==0 )
+			++count;
+	}
+	return count;
+}
+
+int triangleNum(int n)
+{
+	return n*(n+1)/2;
+}
+
+int highlyDivisibleTriangularNumber()
+{
+	unsigned int a=0;
+	int MAX = (~a)/2;	//求int最大值
+	int res, i=1;
+	while(i<MAX-1)
+	{
+		res = divisorNum(triangleNum(i));
+		if( res>500 )
+			break;
+		else ++i;
+	}
+	return res;
+}
+
 void main()
 {
 	//8.findGreatestConsecutive
@@ -144,7 +175,7 @@ void main()
 	}*/
 
 	//11.
-	int		**a, res;
+	/*int		**a, res;
 	a	=	(int **)malloc(400*sizeof(int));
 	std::ifstream file("digits11.txt");
 	int		c;
@@ -159,5 +190,8 @@ void main()
 	}
 
 	res = greatestProduct(a,20);
-	std::cout<<res<<std::endl;
+	std::cout<<res<<std::endl;*/
+
+	//12.
+	std::cout<<highlyDivisibleTriangularNumber()<<std::endl;
 }
