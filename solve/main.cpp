@@ -104,12 +104,12 @@ int	greatestProduct(int **a, int n)
 int divisorNum(int n)
 {
 	int count=0;
-	for( int i=1;i<=n;++i )
+	for( int i=1;i<=sqrt(n);++i )
 	{
 		if( n%i==0 )
 			++count;
 	}
-	return count;
+	return count*2;
 }
 
 int triangleNum(int n)
@@ -122,14 +122,14 @@ int highlyDivisibleTriangularNumber()
 	unsigned int a=0;
 	int MAX = (~a)/2;	//求int最大值
 	int res, i=1;
-	while(i<MAX-1)
+	while(i<MAX)
 	{
 		res = divisorNum(triangleNum(i));
 		if( res>500 )
 			break;
 		else ++i;
 	}
-	return res;
+	return triangleNum(i);
 }
 
 void main()
