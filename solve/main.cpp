@@ -1,6 +1,10 @@
 #include<fstream>
 #include<iostream>
 #include<math.h>	//sumOfPrim
+#include<memory>	//shared_ptr
+#include<vector>
+
+typedef std::shared_ptr<std::vector<char[50]>> LargeNumGroupPtr;
 
 int	findGreatestConsecutive(int a[], int len)
 {
@@ -114,6 +118,14 @@ int	greatestProduct(int *a, int n)
 					pro	=	proTmp;
 				}
 			}
+			if( i>3 && j<n-3 )
+			{
+				proTmp	=	a[transform(n,i,j)] * a[transform(n,i-1,j+1)] * a[transform(n,i-2,j+2)] * a[transform(n,i-3,j+3)];
+				if( proTmp>pro )
+				{
+					pro	=	proTmp;
+				}
+			}
 		}
 	}
 	return	pro;
@@ -150,6 +162,12 @@ int highlyDivisibleTriangularNumber()
 		else ++i;
 	}
 	return triangleNum(i);
+}
+
+//13.
+char * sumOfLargeNumber(LargeNumGroupPtr largenum )
+{
+
 }
 
 void main()
