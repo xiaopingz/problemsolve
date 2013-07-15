@@ -73,34 +73,53 @@ int primeNumber(int n)
 	return prime;
 }
 
-int	greatestProduct(int **a, int n)
+//将二维的数组的下标转换为对应的一维数组的下标
+int transform(int n, int i, int j )
+{
+	int k;
+	k	=	i * n + j;
+	return k;
+}
+
+//11.同一排相邻位置四个数的乘积最大的
+int	greatestProduct(int *a, int n)
 {
 	int pro = 0, proTmp = 0;
 	int i,j;
-	for( i=0;i<n-4;++i )
+	for( i=0;i<n;++i )
 	{
-		for( j=0;j<n-4;++j )
+		for( j=0;j<n;++j )
 		{
-			proTmp	=	a[i][j] * a[i][j+1] * a[i][j+2] * a[i][j+3];
-			if( proTmp>pro )
+			if( j<n-3 )
 			{
-				pro	=	proTmp;
+				proTmp	=	a[transform(n,i,j)] * a[transform(n,i,j+1)] * a[transform(n,i,j+2)] * a[transform(n,i,j+3)];
+				if( proTmp>pro )
+				{
+					pro	=	proTmp;
+				}
 			}
-			proTmp	=	a[i][j] * a[i+1][j] * a[i+2][j] * a[i+3][j];
-			if( proTmp>pro )
+			if( i<n-3 )
 			{
-				pro	=	proTmp;
+				proTmp	=	a[transform(n,i,j)] * a[transform(n,i+1,j)] * a[transform(n,i+2,j)] * a[transform(n,i+3,j)];
+				if( proTmp>pro )
+				{
+					pro	=	proTmp;
+				}
 			}
-			proTmp	=	a[i][j] * a[i+1][j+1] * a[i+2][j+2] * a[i+3][j+3];
-			if( proTmp>pro )
+			if( i<n-3 && j<n-3 )
 			{
-				pro	=	proTmp;
+				proTmp	=	a[transform(n,i,j)] * a[transform(n,i+1,j+1)] * a[transform(n,i+2,j+2)] * a[transform(n,i+3,j+3)];
+				if( proTmp>pro )
+				{
+					pro	=	proTmp;
+				}
 			}
 		}
 	}
 	return	pro;
 }
 
+//求n的因数的个数
 int divisorNum(int n)
 {
 	int count=0;
@@ -112,11 +131,12 @@ int divisorNum(int n)
 	return count*2;
 }
 
+//第n个
 int triangleNum(int n)
 {
 	return n*(n+1)/2;
 }
-
+//12.
 int highlyDivisibleTriangularNumber()
 {
 	unsigned int a=0;
@@ -175,23 +195,21 @@ void main()
 	}*/
 
 	//11.
-	/*int		**a, res;
-	a	=	(int **)malloc(400*sizeof(int));
+	int		*a, res;
+	a	=	new int[400];
 	std::ifstream file("digits11.txt");
 	int		c;
 
-	for( int i=0;i<20;++i )
+	for( int i=0;i<400;++i )
 	{
-		for( int j=0;j<20;++j )
-		{
-			file>>c;
-			a[i][j]	== c;
-		}
+		file>>c;
+		a[i] = c;
 	}
 
 	res = greatestProduct(a,20);
-	std::cout<<res<<std::endl;*/
+	std::cout<<res<<std::endl;
+	file.close();
 
 	//12.
-	std::cout<<highlyDivisibleTriangularNumber()<<std::endl;
+	/*std::cout<<highlyDivisibleTriangularNumber()<<std::endl;*/
 }
