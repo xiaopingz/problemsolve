@@ -165,9 +165,52 @@ int highlyDivisibleTriangularNumber()
 }
 
 //13.
-char * sumOfLargeNumber(LargeNumGroupPtr largenum )
-{
+//char * sumOfLargeNumber(LargeNumGroupPtr largenum )
+//{
+//
+//}
 
+//14.
+int	maxChain()
+{
+	char	a[1000000];
+	int		max=0,count, countMax=0, tmp;
+
+	for( int i=999999;i>=00;--i )
+	{
+		a[i]	=	0;
+	}
+	for( int i=999999;i>0;--i )
+	{
+		if( a[i]==1 )
+			continue;
+		a[i]	=	1;
+		tmp		=	i;
+		count	=	0;
+		while(tmp!=1)
+		{
+			if( tmp%2==0 )	//even
+			{
+				tmp	=	tmp/2;
+				++count;
+				if( tmp<1000000 )
+					a[tmp]	=	1;
+			}
+			else
+			{
+				tmp	=	tmp*3+1;
+				++count;
+				if( tmp<1000000 )
+					a[tmp]	=	1;
+			}
+		}
+		if( count>countMax )
+		{
+			countMax	=	count;
+			max			=	i;
+		}
+	}
+	return max;
 }
 
 void main()
@@ -213,7 +256,7 @@ void main()
 	}*/
 
 	//11.
-	int		*a, res;
+	/*int		*a, res;
 	a	=	new int[400];
 	std::ifstream file("digits11.txt");
 	int		c;
@@ -226,8 +269,11 @@ void main()
 
 	res = greatestProduct(a,20);
 	std::cout<<res<<std::endl;
-	file.close();
+	file.close();*/
 
 	//12.
 	/*std::cout<<highlyDivisibleTriangularNumber()<<std::endl;*/
+
+	//14.
+	std::cout<<maxChain()<<std::endl;
 }
