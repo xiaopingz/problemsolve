@@ -174,11 +174,12 @@ int highlyDivisibleTriangularNumber()
 int	maxChain()
 {
 	char	a[1000000];
-	int		max=0,count, countMax=0, tmp;
+	int		max=0,count, countMax=0;
+	long	long	tmp;
 
-	for( int i=999999;i>=00;--i )
+	for( int j=999999;j>=00;--j )
 	{
-		a[i]	=	0;
+		a[j]	=	0;
 	}
 	for( int i=999999;i>0;--i )
 	{
@@ -196,7 +197,7 @@ int	maxChain()
 				if( tmp<1000000 )
 					a[tmp]	=	1;
 			}
-			else
+			else	//odd
 			{
 				tmp	=	tmp*3+1;
 				++count;
