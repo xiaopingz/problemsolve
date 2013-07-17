@@ -1,3 +1,4 @@
+#if 1
 #include<fstream>
 #include<iostream>
 #include<math.h>	//sumOfPrim
@@ -285,3 +286,5 @@ void main()
 	}
 	num.showFirstTen();
 }
+
+#endif
