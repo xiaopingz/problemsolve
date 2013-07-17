@@ -3,8 +3,8 @@
 #include<math.h>	//sumOfPrim
 #include<memory>	//shared_ptr
 #include<vector>
+#include"largeNum.h"	//13.
 
-typedef std::shared_ptr<std::vector<char[50]>> LargeNumGroupPtr;
 
 int	findGreatestConsecutive(int a[], int len)
 {
@@ -164,18 +164,12 @@ int highlyDivisibleTriangularNumber()
 	return triangleNum(i);
 }
 
-//13.
-//char * sumOfLargeNumber(LargeNumGroupPtr largenum )
-//{
-//
-//}
-
 //14.
 int	maxChain()
 {
 	char	a[1000000];
 	int		max=0,count, countMax=0;
-	long	long	tmp;
+	long	long	tmp;	//
 
 	for( int j=999999;j>=00;--j )
 	{
@@ -276,5 +270,18 @@ void main()
 	/*std::cout<<highlyDivisibleTriangularNumber()<<std::endl;*/
 
 	//14.
-	std::cout<<maxChain()<<std::endl;
+	/*std::cout<<maxChain()<<std::endl;*/
+
+	//13.
+	std::ifstream	file("digits13.txt");
+	std::string		str;
+	file>>str;
+	largeNum		num(str);
+	while( !file.eof() )
+	{
+		file>>str;
+		largeNum	n(str);
+		num.add(n);
+	}
+	num.showFirstTen();
 }
