@@ -136,7 +136,7 @@ int	greatestProduct(int *a, int n)
 int divisorNum(int n)
 {
 	int count=0;
-	for( int i=1;i<=sqrt(n);++i )
+	for( int i=1;i<=sqrt((double)n);++i )
 	{
 		if( n%i==0 )
 			++count;
@@ -273,18 +273,28 @@ void main()
 	//14.
 	/*std::cout<<maxChain()<<std::endl;*/
 
-	//13.
-	std::ifstream	file("digits13.txt");
+	//13.大数字求和（100个50位）
+	//类中数组设置为60位的，初始化时初始为0
+	/*std::ifstream	file("digits13.txt");
 	std::string		str;
 	file>>str;
 	largeNum		num(str);
 	while( !file.eof() )
 	{
-		file>>str;
-		largeNum	n(str);
-		num.add(n);
+	file>>str;
+	largeNum	n(str);
+	num.add(n);
 	}
-	num.showFirstTen();
+	num.showFirstTen();*/
+
+	//16.
+	largeNum	num;
+	for ( int i=0;i<1000;++i )
+	{
+		largeNum	tmp(num);
+		num.add(tmp);
+	}
+	std::cout<<num.sumOfBit()<<std::endl;
 }
 
 #endif
