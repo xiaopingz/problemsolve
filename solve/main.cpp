@@ -81,6 +81,7 @@ int primeNumber(int n)
 //将二维的数组的下标转换为对应的一维数组的下标
 int transform(int n, int i, int j )
 {
+	//n为方阵的阶数，就方阵为n*n的
 	int k;
 	k	=	i * n + j;
 	return k;
@@ -89,6 +90,7 @@ int transform(int n, int i, int j )
 //11.同一排相邻位置四个数的乘积最大的
 int	greatestProduct(int *a, int n)
 {
+	//n为方阵的阶数，就方阵为n*n的
 	int pro = 0, proTmp = 0;
 	int i,j;
 	for( i=0;i<n;++i )
@@ -209,8 +211,111 @@ int	maxChain()
 	return max;
 }
 
+//1000以内（包括）的任意数字，英文表示时的字母和
+int	numberLetterCounts(int n)
+{
+	//记录需要用到的数字的英文长度
+	int numLen[31],i;	
+	int res=0;	//	result
+	for ( i=0;i<31;++i )
+	{
+		switch(i)
+		{
+		case 1: case 2: case 6: case 10: 
+			numLen[i]	=	3;break;
+		case 4: case 5: case 9:
+			numLen[i]	=	4;break;
+		case 3: case 7: case 8: case 22: case 23: case 24:
+			numLen[i]	=	5;break;
+		case 11: case 12: case 20: case 21: case 26: case 27:
+			numLen[i]	=	6;break;
+		case 15: case 16: case 25: case 28:
+			numLen[i]	=	7;break;
+		case 13: case 14:case 18: case 19: 	//	29-thousand
+			numLen[i]	=	8;break;
+		case 17:	//seventeen
+			numLen[i]	=	9;break;
+		case 29:	//hundred and
+			numLen[i]	=	10;break;
+		case 30:
+			numLen[i]	=	11;break;
+		default:
+			numLen[i]	=	0;
+			break;
+		}
+	}
+
+	//真纠结！！！
+	if ( n<20 )
+	{
+		res	=	numLen[n];
+	}
+	else if ( n<100 )
+	{
+		res	=	numLen[n/10+18]+numLen[n%10];
+	}
+	else if ( n==1000 )
+	{
+		res	=	numLen[30];
+	}
+	else if ( n%100==0 )
+	{
+		res	=	numLen[n/100]+numLen[28];
+	}
+	else if ( n%100>0 && n%100<20 )
+	{
+		res	=	numLen[n/100]+numLen[29]+numLen[n%100];
+	}
+	else if ( n<1000 )
+	{
+		res	=	numLen[n/100]+numLen[29]+numLen[(n%100)/10+18]+numLen[n%10];
+	}	
+
+	return	res;
+}
+
+//17.1~1000的数字，字母个数总和
+int	sumOfLetterCounts()
+{
+	int	count=0;
+	for ( int i=1;i<=1000;++i )
+	{
+		count	+=	numberLetterCounts(i);
+	}
+	return	count;
+}
+
+//18.
+int	maxPathSum(int * a, int n)
+{
+	//n为方阵的阶数，就方阵为n*n的；此处a为三角矩阵，如果只知道a的长度，则需要换算
+	int	i,j, sum1=0, sum2=0, sum=0, sumMax=0;
+	for ( i=0;i<n;++i )
+	{
+		for ( j=0;j<=i;++j )
+		{
+			sum1	=	sum + a[transform(n,i+1,j)];
+			sum2	=	sum + a[transform(n,i+1,j+1)];
+			if ( sum1>sum2 )
+			{
+				sum	=	sum1;
+
+			}
+		}
+	}
+}
+
 void main()
 {
+	//17.
+	int i=1;
+	while ( i )
+	{
+		std::cin>>i;
+		std::cout<<numberLetterCounts(i)<<std::endl;
+	}
+	std::cout<<sumOfLetterCounts()<<std::endl;
+
 	//8.findGreatestConsecutive
 	/*int		a[1000], i=0, res;
 	std::ifstream file("digits.txt");
@@ -288,13 +393,13 @@ void main()
 	num.showFirstTen();*/
 
 	//16.
-	largeNum	num;
+	/*largeNum	num;
 	for ( int i=0;i<1000;++i )
 	{
-		largeNum	tmp(num);
-		num.add(tmp);
+	largeNum	tmp(num);
+	num.add(tmp);
 	}
-	std::cout<<num.sumOfBit()<<std::endl;
+	std::cout<<num.sumOfBit()<<std::endl;*/
 }
 
 #endif
