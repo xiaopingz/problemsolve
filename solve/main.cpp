@@ -302,19 +302,31 @@ int	maxPathSum(int * a, int n)
 
 void main()
 {
+	//20.
+	largeNum	num;	//	N=200, init stores 1. (LargeNum is so wonderful!!)
+	for ( int i=1;i<100;++i )
+	{
+		largeNum	tmp(num);
+		for( int j=1;j<=i;++j )
+		{
+			num.add(tmp);
+		}
+	}
+	std::cout<<num.sumOfBit()<<std::endl;
+
 	//18.
-	std::ifstream	file("digits18.txt");
+	/*std::ifstream	file("digits18.txt");
 	int k,n=15,a[225];
 	for ( int i = 0;i<n;++i )
 	{
-		for ( int j=0;j<=i;++j )
-		{
-			file>>k;
-			a[transform(n,i,j)]	=	k;
-		}
+	for ( int j=0;j<=i;++j )
+	{
+	file>>k;
+	a[transform(n,i,j)]	=	k;
+	}
 	}
 	std::cout<<maxPathSum(a,n)<<std::endl;
-
+	*/
 	//17.
 	/*int i=1;
 	while ( i )
@@ -323,6 +335,16 @@ void main()
 		std::cout<<numberLetterCounts(i)<<std::endl;
 	}
 	std::cout<<sumOfLetterCounts()<<std::endl;*/
+
+	//16.
+	/*largeNum	num;//	N=400
+	for ( int i=0;i<1000;++i )
+	{
+	largeNum	tmp(num);
+	num.add(tmp);
+	}
+	std::cout<<num.sumOfBit()<<std::endl;*/
+
 
 	//8.findGreatestConsecutive
 	/*int		a[1000], i=0, res;
@@ -387,7 +409,7 @@ void main()
 	/*std::cout<<maxChain()<<std::endl;*/
 
 	//13.大数字求和（100个50位）
-	//类中数组设置为60位的，初始化时初始为0
+	//类中数组设置为60位的，初始化时初始为0(N=60)
 	/*std::ifstream	file("digits13.txt");
 	std::string		str;
 	file>>str;
@@ -400,14 +422,6 @@ void main()
 	}
 	num.showFirstTen();*/
 
-	//16.
-	/*largeNum	num;
-	for ( int i=0;i<1000;++i )
-	{
-	largeNum	tmp(num);
-	num.add(tmp);
-	}
-	std::cout<<num.sumOfBit()<<std::endl;*/
 }
 
 #endif

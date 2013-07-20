@@ -1,6 +1,6 @@
 #pragma once
 #include<string>
-#define	N	400
+#define	N	200
 
 class largeNum
 {
