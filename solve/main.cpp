@@ -289,32 +289,40 @@ int	sumOfLetterCounts()
 int	maxPathSum(int * a, int n)
 {
 	//n为方阵的阶数，就方阵为n*n的；此处a为三角矩阵，如果只知道a的长度，则需要换算
-	int	i,j, sum1=0, sum2=0, sum=0, sumMax=0;
-	for ( i=0;i<n;++i )
+	int	i,j,sum1,sum2;
+	for ( i=n-2;i>=0;--i )
 	{
 		for ( j=0;j<=i;++j )
 		{
-			sum1	=	sum + a[transform(n,i+1,j)];
-			sum2	=	sum + a[transform(n,i+1,j+1)];
-			if ( sum1>sum2 )
-			{
-				sum	=	sum1;
-
-			}
+			a[transform(n,i,j)]	+=	(a[transform(n,i+1,j)]>a[transform(n,i+1,j+1)]?a[transform(n,i+1,j)]:a[transform(n,i+1,j+1)]);
 		}
 	}
+	return a[0];
 }
 
 void main()
 {
+	//18.
+	std::ifstream	file("digits18.txt");
+	int k,n=15,a[225];
+	for ( int i = 0;i<n;++i )
+	{
+		for ( int j=0;j<=i;++j )
+		{
+			file>>k;
+			a[transform(n,i,j)]	=	k;
+		}
+	}
+	std::cout<<maxPathSum(a,n)<<std::endl;
+
 	//17.
-	int i=1;
+	/*int i=1;
 	while ( i )
 	{
 		std::cin>>i;
 		std::cout<<numberLetterCounts(i)<<std::endl;
 	}
-	std::cout<<sumOfLetterCounts()<<std::endl;
+	std::cout<<sumOfLetterCounts()<<std::endl;*/
 
 	//8.findGreatestConsecutive
 	/*int		a[1000], i=0, res;
