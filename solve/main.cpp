@@ -300,19 +300,73 @@ int	maxPathSum(int * a, int n)
 	return a[0];
 }
 
-void main()
+int isLeapYear(int year)
 {
-	//20.
-	largeNum	num;	//	N=200, init stores 1. (LargeNum is so wonderful!!)
-	for ( int i=1;i<100;++i )
+	if ( year%400==0 || year%4==0 && year%100!=0 )
 	{
-		largeNum	tmp(num);
-		for( int j=1;j<=i;++j )
+		return	1;
+	}
+	else return 0;
+}
+//19.
+int sundayCounts()
+{
+	int	count = 0;
+	int	sum = 1;
+	for ( int i=1901;i<=2000;++i )
+	{
+		if (isLeapYear(i-1))
 		{
-			num.add(tmp);
+			sum	+= 366;
+		}
+		else	sum+=365;
+		int	t	=	sum;
+		for ( int j=1;j<13;++j )
+		{
+			switch(j)
+			{
+			case 2:case 4:case 6:case 8:case 9:case 11:
+				t	+=	31;break;
+			case 3:
+				if (isLeapYear(i))
+				{
+					t	+=	29;
+					break;
+				}
+				else
+				{
+					t	+=	28;
+					break;
+				}
+			case 5:case 7:case 10:case 12:
+				t	+=	30;break;
+			}
+			t	=	t%7;
+			if (!t)
+			{
+				++count;
+			}
 		}
 	}
-	std::cout<<num.sumOfBit()<<std::endl;
+	return	count;
+}
+
+void main()
+{
+	//19.
+	std::cout<<sundayCounts()<<std::endl;
+
+	//20.
+	//largeNum	num;	//	N=200, init stores 1. (LargeNum is so wonderful!!)
+	//for ( int i=1;i<100;++i )
+	//{
+	//	largeNum	tmp(num);
+	//	for( int j=1;j<=i;++j )
+	//	{
+	//		num.add(tmp);
+	//	}
+	//}
+	//std::cout<<num.sumOfBit()<<std::endl;
 
 	//18.
 	/*std::ifstream	file("digits18.txt");
