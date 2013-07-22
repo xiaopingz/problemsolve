@@ -146,7 +146,31 @@ int divisorNum(int n)
 	return count*2;
 }
 
-//第n个
+//求n的因数之和(不大于n/2)(21.)
+int sumOfDivisor(int n)
+{
+	int	sum	=	0;
+	for( int i=1;i<=sqrt((double)n);++i )
+	{
+		if( n%i==0 )
+			sum	+=	i + n/i;
+	}
+	sum	=	sum - n;	//因为不大于n/2，所以不包括自身
+	return	sum;
+}
+
+//21.小于n的amicable numbers的和(题中n为10000)
+int	sumOfAmicableNumbers(int n)
+{
+	int sum=0;
+	for( int i=2;i<n;++i )
+	{
+		int	a = sumOfDivisor(i);
+		if(sumOfDivisor(a)==i)
+			sum += i+a;
+}
+
+//第n个...
 int triangleNum(int n)
 {
 	return n*(n+1)/2;
