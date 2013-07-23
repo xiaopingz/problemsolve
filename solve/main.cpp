@@ -4,6 +4,7 @@
 #include<math.h>	//sumOfPrim
 #include<memory>	//shared_ptr
 #include<vector>
+#include <map>		//22.
 #include"largeNum.h"	//13.
 
 
@@ -22,25 +23,30 @@ int	findGreatestConsecutive(int a[], int len)
 	return pro;
 }
 
+//n是否为素数
+int isPrimeNum(int n)
+{
+	int flag=1, a;
+	a = sqrt((double)n);
+	for ( int i=2;i<=a;++i )
+	{
+		if ( n%i==0 )
+		{
+			flag = 0;
+			break;
+		}
+	}
+	return flag;
+}
 
+//10.
 long long int sumOfPrime(long int n )
 {
 	long long int sum = 0;	//类型很重要
-	int flag ,a,b;
 	
 	for( int i=2;i<n;++i )
 	{
-		a = sqrt((double)i);
-		flag = 1;
-		for( b=2;b<=a;++b )
-		{
-			if( i%b == 0 )
-			{
-				flag = 0;
-				break;
-			}
-		}
-		if( flag )
+		if( isPrimeNum(i) )
 		{
 			sum += i;
 		}
@@ -48,32 +54,21 @@ long long int sumOfPrime(long int n )
 	return sum;
 }
 
+//7.第n个素数是多少
 int primeNumber(int n)
 {
-	int		count = 0;	//第几个素数，要求第n个素数是多少
+	int		count = 0;	//第几个素数，求第n个素数是多少
 	int		prime = 0;
-	int		flag = 1;
-	int		a = 2, b, m;
-	m = sqrt( (double)a);
+	int		a = 2;
 	
 	while( count<n )
 	{
-		flag = 1;
-		for( b=2; b<=m ;b++ )
-		{
-			if( a%b == 0 )
-			{
-				flag	=	0;
-				break;
-			}
-		}
-		if( flag )
+		if( isPrimeNum(a) )
 		{
 			count++;
 			prime = a;
 		}
 		a++;
-		m = sqrt( (double)a);
 	}
 	return prime;
 }
@@ -153,21 +148,38 @@ int sumOfDivisor(int n)
 	for( int i=1;i<=sqrt((double)n);++i )
 	{
 		if( n%i==0 )
-			sum	+=	i + n/i;
+		{
+			if ( n/i!=i )
+			{
+				sum	+=	i + n/i;
+			}
+			else
+				sum	+=	i;
+		}
 	}
 	sum	=	sum - n;	//因为不大于n/2，所以不包括自身
 	return	sum;
 }
 
-//21.小于n的amicable numbers的和(题中n为10000)
-int	sumOfAmicableNumbers(int n)
+//21.小于10000的amicable numbers的和
+int	sumOfAmicableNumbers()
 {
-	int sum=0;
-	for( int i=2;i<n;++i )
+	int sum=0, a[10000]={0};
+	for( int i=2;i<10000;++i )
 	{
-		int	a = sumOfDivisor(i);
-		if(sumOfDivisor(a)==i)
-			sum += i+a;
+		if ( isPrimeNum(i) )
+			continue;
+		if (a[i])
+			continue;	//	数字已经是amicable numbers，则跳过
+		int	j = sumOfDivisor(i);
+		if( sumOfDivisor(j)==i && j!=i )
+		{
+			sum += i+j;
+			a[i] = j;
+			a[j] = i;
+		}
+	}
+	return	sum;
 }
 
 //第n个...
@@ -375,10 +387,83 @@ int sundayCounts()
 	return	count;
 }
 
+int worthOfWord(std::string str)
+{
+	int len	=	str.length();
+	int	worth	=	0;
+	for ( int i=0;i<len;++i )
+	{
+		if ( str[i]>64 && str[i]<91 )
+		{
+			worth	+=	str[i]-64;
+		}
+	}
+	return	worth;
+}
+
+//22.
+typedef std::map<std::string,int> MapWW;
+typedef std::shared_ptr<MapWW>	MapWWPtr;
+
+//生成存有各单词及其worth的map
+MapWWPtr	makeWordsMap(std::string str)
+{
+	MapWWPtr	pMapWW	=	std::make_shared<MapWW>();
+	int			flag	=	1;
+	std::size_t	startPos=0, endPos=0,tmp;
+
+	while ( endPos!=str.length()-1 )
+	{
+		char		tc[20]	=	"";
+		if (flag)
+		{
+			tmp	=	str.find('"',startPos+1 );
+			endPos	=	tmp;
+			str.copy(tc,endPos-startPos-1,startPos+1);
+			std::string strTmp(tc);
+			int iTmp	=	worthOfWord(strTmp);
+			(*pMapWW)[strTmp]	=	iTmp;
+			flag	=	0;
+		}
+		else
+		{
+			tmp	=	str.find('"',endPos+1 );
+			startPos	=	tmp;
+			flag		=	1;
+		}
+	}
+	return	pMapWW;
+}
+
+//计算map中名字分数乘位置的总和
+long long	int	sumOfNameScores(MapWWPtr pMapWW)
+{
+	int count	=	1;
+	long long int sum	=	0;
+	MapWW::iterator it;
+
+	for ( it=pMapWW->begin();it!=pMapWW->end();++it )
+	{
+		sum	+=	it->second * count;
+		++count;
+	}
+	return	sum;
+}
+
 void main()
 {
+	//22.
+	std::ifstream	file("names.txt");
+	std::string	str;
+	file>>str;
+	MapWWPtr	pMapWW	=	makeWordsMap(str);
+	std::cout<<sumOfNameScores(pMapWW)<<std::endl;
+
+	//21.
+	/*std::cout<<sumOfAmicableNumbers()<<std::endl;*/
+
 	//19.
-	std::cout<<sundayCounts()<<std::endl;
+	//std::cout<<sundayCounts()<<std::endl;
 
 	//20.
 	//largeNum	num;	//	N=200, init stores 1. (LargeNum is so wonderful!!)
@@ -440,7 +525,7 @@ void main()
 	std::cout<<res<<std::endl;*/
 
 	//10.
-	/*std::cout<<sumOfPrime((long int)2000000)<<std::endl;*/
+	//std::cout<<sumOfPrime((long int)2000000)<<std::endl;
 
 	//7.	
 	/*int n = 10001;
