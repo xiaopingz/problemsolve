@@ -72,3 +72,17 @@ void	largeNum::showFirstTen()
 	}
 }
 
+void	largeNum::copy(largeNum n)
+{
+	for ( int i=0;i<N;++i )
+	{
+		m_cNum[i]	=	n.m_cNum[i];
+	}
+}
+
+int		largeNum::firstBit()
+{
+	int i	=	m_cNum[0];
+	return	i;
+}
+

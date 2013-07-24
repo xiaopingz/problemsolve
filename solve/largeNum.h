@@ -1,6 +1,6 @@
 #pragma once
 #include<string>
-#define	N	200
+#define	N	1000
 
 class largeNum
 {
@@ -13,6 +13,8 @@ public:
 	void	add(largeNum &caNum);
 	int		sumOfBit();	//	16.
 	void	showFirstTen();
+	void	copy(largeNum n);
+	int		firstBit();
 
 protected:
 	char	m_cNum[N];

@@ -1,4 +1,5 @@
 #if 1
+#include <algorithm>//swap
 #include<fstream>
 #include<iostream>
 #include<math.h>	//sumOfPrim
@@ -387,6 +388,7 @@ int sundayCounts()
 	return	count;
 }
 
+//22.
 int worthOfWord(std::string str)
 {
 	int len	=	str.length();
@@ -401,7 +403,6 @@ int worthOfWord(std::string str)
 	return	worth;
 }
 
-//22.
 typedef std::map<std::string,int> MapWW;
 typedef std::shared_ptr<MapWW>	MapWWPtr;
 
@@ -435,7 +436,7 @@ MapWWPtr	makeWordsMap(std::string str)
 	return	pMapWW;
 }
 
-//计算map中名字分数乘位置的总和
+//22.计算map中名字分数乘位置的总和
 long long	int	sumOfNameScores(MapWWPtr pMapWW)
 {
 	int count	=	1;
@@ -450,14 +451,170 @@ long long	int	sumOfNameScores(MapWWPtr pMapWW)
 	return	sum;
 }
 
+int isAbundantNumber(int n)
+{
+	if (sumOfDivisor(n)>n)
+		return	1;
+	else	return 0;
+}
+
+//23.不是两个abundant number的和的所有正整数之和
+int sumOfNonANSum()
+{
+	int	a[28124]	=	{0};
+	int	i, t;
+	int	sum=0;
+
+	for ( i=12;i<28124;++i )
+	{
+		if ( isAbundantNumber(i) )
+			a[i]	=	1;
+	}
+	for( i=12;i<28124;++i )
+	{
+		if ( a[i]==1 || a[i]==3 )
+		{
+			for( int j=i;j<28124;++j )
+			{
+				if ( a[j]==1 || a[j]==3 )
+				{
+					t	=	i+j;
+					if ( t<28124 )
+					{
+						if ( a[t]==1 )
+						{
+							a[t] = 3;
+						}
+						else if ( a[t]==0 )
+						{
+							a[t]	=	2;
+						}
+					}
+				}
+			}
+		}
+	}
+	for ( i=1;i<28124;++i )
+	{
+		if ( a[i]==0 || a[i]==1 )
+		{
+			sum	+=	i;
+		}
+	}
+	return	sum;
+}
+
+//全排列
+void	fullPermut(char * a,int k, int n)
+{
+	static int count	=	0;
+	if (k==n)
+	{
+		++count;
+		std::cout<<a<<std::endl;
+	}
+	else
+	{
+		for ( int i=k;i<n;++i )
+		{
+			std::swap(a[k],a[i]);
+			fullPermut(a,k+1,n);
+			std::swap(a[k],a[i]);
+		}
+	}
+}
+
+//求d的位数（10进制）----未用到
+int		digitNumbers(int d)
+{
+	char	a[4];
+	int		n;
+	n	=	sprintf(a,"%d",d);
+	return	n;
+}
+
+//除法时末尾补零(补n个零，则乘一次10)
+void	mutliplyTen(int &a, int n)
+{
+	for ( int i=0;i<n;++i )
+	{
+		a = a*10;
+	}
+}
+
+//求1/d的循环位数
+int		numOfRecurringCycle(int d)
+{
+	int count = 0;
+	std::vector<int>		vRem;	//	保存每一位余数,如果重复，则能计算出循环的位数。
+	int	r	=	1;		//余数
+	std::vector<int>::iterator it	=	find(vRem.begin(),vRem.end(),r);
+	while(it==vRem.end())
+	{
+		vRem.push_back(r);
+		int i	=	digitNumbers(d) - digitNumbers(r)+1;
+		mutliplyTen(r,i);
+		r	=	r%d;
+		it	=	find(vRem.begin(),vRem.end(),r);
+	}
+	for ( ;it!=vRem.end();++it )
+	{
+		++count;
+	}
+	
+	return count;
+}
+
+//26.求纯小数中循环小数的位数最多的一位（1/d，d小于1000）
+int		longestRecurringCycle()
+{
+	int iMax, nT,nMax=0;
+	for ( int i=3;i<1000;++i )
+	{
+		nT	=	numOfRecurringCycle(i);
+		if ( nT>nMax )
+		{
+			nMax	=	nT;
+			iMax	=	i;
+		}
+	}
+	return	iMax;
+}
+
 void main()
 {
+	//26.
+	int i = 9;
+	std::cout<<longestRecurringCycle();
+
+	//25.
+	/*largeNum	sum, t,k;
+	int			count = 3;
+	sum.add(t);
+	while ( sum.firstBit()==0 )
+	{
+	t.copy(k);
+	k.copy(sum);
+	sum.add(t);
+	++count;
+	}
+	std::cout<<count<<std::endl;*/
+
+	//24.
+	/*char a[11]	=	{ '0','1','2','3','4','5','6','7','8','9','\0' };
+	fullPermut(a,0,10);*/
+
+	//std::cout<<a<<std::endl;
+	
+	//23.
+	/*std::cout<<sumOfNonANSum()<<std::endl;*/
+
 	//22.
-	std::ifstream	file("names.txt");
+	/*std::ifstream	file("names.txt");
 	std::string	str;
 	file>>str;
 	MapWWPtr	pMapWW	=	makeWordsMap(str);
-	std::cout<<sumOfNameScores(pMapWW)<<std::endl;
+	std::cout<<sumOfNameScores(pMapWW)<<std::endl;*/
 
 	//21.
 	/*std::cout<<sumOfAmicableNumbers()<<std::endl;*/
