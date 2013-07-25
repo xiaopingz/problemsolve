@@ -3,6 +3,7 @@
 #include<fstream>
 #include<iostream>
 #include<math.h>	//sumOfPrim
+#include <cmath>	//abs
 #include<memory>	//shared_ptr
 #include<vector>
 #include <map>		//22.
@@ -541,6 +542,89 @@ void	lexicographicPermutations(char *a, int n)
 
 }
 
+//求阶乘
+int		factorial(int n)
+{
+	if ( !n )
+	{
+		return 1;
+	}
+	else
+		return n * factorial(n-1);
+}
+
+//
+void	setTheBit(int &t, int i, char *a)
+{
+	int b[10],count=0;
+	
+	for (int j=0;j<i;++j)
+	{
+		b[a[j]-'0']	=	1;
+	}
+	for ( int k=0;k<10;++k )
+	{
+		if ( b[k]!=1 )
+		{
+			++count;
+			if ( count==t+1 )
+			{
+				t = k;
+				break;
+			}
+		}
+	}
+}
+
+//数组a，长度为n，找字符c是否存在。
+int findChar(char *a, int n, char c)
+{
+	for ( int i=0;i<n;++i )
+	{
+		if ( a[i]==c )
+			return 1;
+	}
+	return 0;
+}
+
+//24_2.
+void	lexicographicPermutations2(char *a, int n)
+{
+	int r=1000000;	//余数
+	int t, flag;	//记录每一位初步计算应填入的数
+	char	c[11] = "";	//??????????初始化为0？写成{'0'}怎么也只是第一位初始化了，其他位都为0呢……
+	for ( int i=0;i<n;++i )
+	{
+		if ( r==0 )
+		{
+			for ( int k=n-1;k>=0;--k )
+			{
+				if ( !findChar(c,n,a[k]) )
+				{
+					c[i]	=	a[k];
+					break;
+				}
+			}
+		}
+
+		for ( int j=n-1-i;j>0;--j )
+		{
+			if ( factorial(j)<r && factorial(j+1)>r )
+			{
+				int f	=	factorial(j);
+				t	=	r/f;
+				if ( r%f==0 )
+					--t;	//!!!!!!!!!!!!!!!
+				r	=	r%f;
+				setTheBit(t,i,c);
+				c[i]	=	t + '0';
+				break;
+			}
+		}
+	}
+	std::cout<<c<<std::endl;
+}
+
 //求d的位数（10进制）----未用到
 int		digitNumbers(int d)
 {
@@ -598,8 +682,35 @@ int		longestRecurringCycle()
 	return	iMax;
 }
 
+//27.
+int		formulaOfQuadraticPrimes()
+{
+	int aMax,bMax,nMax=0;
+	int	p;
+	for ( int a=-1000;a<=1000;++a )
+	{
+		for ( int b=-1000;b<=1000;++b )
+		{
+			int n = 0;
+			while( isPrimeNum(abs(n*n+a*n+b)) )
+				++n;
+			if ( n>nMax )
+			{
+				nMax	=	n;
+				aMax	=	a;
+				bMax	=	b;
+			}
+		}
+	}
+	p	=	aMax * bMax;
+	return	p;
+}
+
 void main()
 {
+	//27.
+	/*std::cout<<formulaOfQuadraticPrimes()<<std::endl;*/
+
 	//26.
 	/*int i = 9;
 	std::cout<<longestRecurringCycle();*/
@@ -619,7 +730,7 @@ void main()
 
 	//24.
 	char a[11]	=	{ '0','1','2','3','4','5','6','7','8','9','\0' };
-	lexicographicPermutations(a,10);
+	lexicographicPermutations2(a,10);
 
 	//std::cout<<a<<std::endl;
 	
