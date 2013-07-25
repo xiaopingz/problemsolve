@@ -524,6 +524,23 @@ void	fullPermut(char * a,int k, int n)
 	}
 }
 
+//24.algorithm中sort 和 next_permutation函数
+void	lexicographicPermutations(char *a, int n)
+{
+	int		count=0;
+	std::sort(a,a+n);
+	do 
+	{
+		++count;
+		if( count==1000000 )
+		{
+			std::cout<<a<<std::endl;
+			break;
+		}
+	} while (std::next_permutation(a,a+n));
+
+}
+
 //求d的位数（10进制）----未用到
 int		digitNumbers(int d)
 {
@@ -584,8 +601,8 @@ int		longestRecurringCycle()
 void main()
 {
 	//26.
-	int i = 9;
-	std::cout<<longestRecurringCycle();
+	/*int i = 9;
+	std::cout<<longestRecurringCycle();*/
 
 	//25.
 	/*largeNum	sum, t,k;
@@ -601,8 +618,8 @@ void main()
 	std::cout<<count<<std::endl;*/
 
 	//24.
-	/*char a[11]	=	{ '0','1','2','3','4','5','6','7','8','9','\0' };
-	fullPermut(a,0,10);*/
+	char a[11]	=	{ '0','1','2','3','4','5','6','7','8','9','\0' };
+	lexicographicPermutations(a,10);
 
 	//std::cout<<a<<std::endl;
 	
