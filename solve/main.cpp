@@ -8,6 +8,7 @@
 #include<vector>
 #include <map>		//22.
 #include <set>		//29.
+#include <cstdint>
 #include"largeNum.h"	//13.
 
 
@@ -592,7 +593,7 @@ int findChar(char *a, int n, char c)
 void	lexicographicPermutations2(char *a, int n)
 {
 	int r=1000000;	//余数
-	int t, flag;	//记录每一位初步计算应填入的数
+	int t;	//记录每一位初步计算应填入的数
 	char	c[11] = "";	//??????????初始化为0？写成{'0'}怎么也只是第一位初始化了，其他位都为0呢……
 	for ( int i=0;i<n;++i )
 	{
@@ -726,11 +727,11 @@ int		sumOfNumberSpiralDiagonals()
 //29.
 int	distinctPowers()
 {
-	std::vector<std::pair<int,int>>	powers;
+	std::vector<std::pair<int64_t,int64_t>>	powers;
 	int count = 0, ct=0;
-	for ( int a=2;a<=100;++a )
+	for ( int64_t a=2;a<=100;++a )
 	{
-		for ( int b=2;b<=100;++b )
+		for ( int64_t b=2;b<=100;++b )
 		{
 			if ( find(powers.begin(),powers.end(),std::make_pair(a,b))!=powers.end() )
 				continue;
@@ -739,19 +740,19 @@ int	distinctPowers()
 			if ( isPrimeNum(b) )
 				continue;
 			//std::cout<<"\n<"<<a<<","<<b<<">,";
-			for ( int k=2;k<=sqrt((double)b);++k )
+			for ( int64_t k=2;k<=sqrt((double)b);++k )
 			{
 				if ( b%k==0 )
 				{
-					int m = b/k;
-					int kp	=	pow((double)a,(double)k);
-					int mp	=	pow((double)a,(double)m);
+					int64_t m = b/k;
+					int64_t kp	=	pow((double)a,(double)k);
+					int64_t mp	=	pow((double)a,(double)m);
 					if ( find(powers.begin(),powers.end(),std::make_pair(kp,m))!=powers.end() )
 					{
 						++ct;
-						continue;
+						//continue;
 					}
-					if ( kp>0 && kp<=100 )
+					else if ( kp>0 && kp<=100 )
 					{
 						++ct;
 						powers.push_back(std::make_pair(kp,m));
@@ -760,9 +761,9 @@ int	distinctPowers()
 					if ( find(powers.begin(),powers.end(),std::make_pair(mp,k))!=powers.end() )
 					{
 						++ct;
-						continue;
+						//continue;
 					}
-					if ( mp>0 && mp<=100 )
+					else if ( mp>0 && mp<=100 )
 					{
 						++ct;
 						powers.push_back(std::make_pair(mp,k));
