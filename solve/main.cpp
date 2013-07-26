@@ -7,6 +7,7 @@
 #include<memory>	//shared_ptr
 #include<vector>
 #include <map>		//22.
+#include <set>		//29.
 #include"largeNum.h"	//13.
 
 
@@ -706,8 +707,83 @@ int		formulaOfQuadraticPrimes()
 	return	p;
 }
 
+//28.
+int		sumOfNumberSpiralDiagonals()
+{
+	int i=1, sum=1,a,b=1;
+
+	while( b<1002001 )
+	{
+		int d = i*2;
+		a = b+d;
+		b = a+3*d;
+		sum += 2*(a+b);
+		++i;
+	}
+	return sum;
+}
+
+//29.
+int	distinctPowers()
+{
+	std::vector<std::pair<int,int>>	powers;
+	int count = 0, ct=0;
+	for ( int a=2;a<=100;++a )
+	{
+		for ( int b=2;b<=100;++b )
+		{
+			if ( find(powers.begin(),powers.end(),std::make_pair(a,b))!=powers.end() )
+				continue;
+			powers.push_back(std::make_pair(a,b));
+			++count;
+			if ( isPrimeNum(b) )
+				continue;
+			//std::cout<<"\n<"<<a<<","<<b<<">,";
+			for ( int k=2;k<=sqrt((double)b);++k )
+			{
+				if ( b%k==0 )
+				{
+					int m = b/k;
+					int kp	=	pow((double)a,(double)k);
+					int mp	=	pow((double)a,(double)m);
+					if ( find(powers.begin(),powers.end(),std::make_pair(kp,m))!=powers.end() )
+					{
+						++ct;
+						continue;
+					}
+					if ( kp>0 && kp<=100 )
+					{
+						++ct;
+						powers.push_back(std::make_pair(kp,m));
+						//std::cout<<"<"<<kp<<","<<m<<">,";
+					}
+					if ( find(powers.begin(),powers.end(),std::make_pair(mp,k))!=powers.end() )
+					{
+						++ct;
+						continue;
+					}
+					if ( mp>0 && mp<=100 )
+					{
+						++ct;
+						powers.push_back(std::make_pair(mp,k));
+						//std::cout<<"<"<<mp<<","<<k<<">,";
+					}
+				}
+			}
+		}
+	}
+	std::cout<<ct<<std::endl;
+	return	count;
+}
+
 void main()
 {
+	//29.
+	std::cout<<distinctPowers()<<std::endl;
+
+	//28.
+	/*std::cout<<sumOfNumberSpiralDiagonals()<<std::endl;*/
+
 	//27.
 	/*std::cout<<formulaOfQuadraticPrimes()<<std::endl;*/
 
@@ -729,8 +805,8 @@ void main()
 	std::cout<<count<<std::endl;*/
 
 	//24.
-	char a[11]	=	{ '0','1','2','3','4','5','6','7','8','9','\0' };
-	lexicographicPermutations2(a,10);
+	/*char a[11]	=	{ '0','1','2','3','4','5','6','7','8','9','\0' };
+	lexicographicPermutations2(a,10);*/
 
 	//std::cout<<a<<std::endl;
 	
