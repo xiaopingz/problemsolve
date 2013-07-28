@@ -724,63 +724,88 @@ int		sumOfNumberSpiralDiagonals()
 	return sum;
 }
 
+int		isPowerEqual(std::pair<int64_t,int64_t> pa, std::pair<int64_t,int64_t> pb)
+{
+			return 0;
+}
 //29.
 int	distinctPowers()
 {
 	std::vector<std::pair<int64_t,int64_t>>	powers;
-	int count = 0, ct=0;
+	std::vector<std::pair<int64_t,int64_t>>::iterator it;
+	int flag = 1;
 	for ( int64_t a=2;a<=100;++a )
 	{
 		for ( int64_t b=2;b<=100;++b )
 		{
-			if ( find(powers.begin(),powers.end(),std::make_pair(a,b))!=powers.end() )
-				continue;
-			powers.push_back(std::make_pair(a,b));
-			++count;
-			if ( isPrimeNum(b) )
-				continue;
-			//std::cout<<"\n<"<<a<<","<<b<<">,";
-			for ( int64_t k=2;k<=sqrt((double)b);++k )
+			std::pair<int64_t,int64_t>	pn	=	std::make_pair(a,b);
+			if ( powers.size()==0 )
 			{
-				if ( b%k==0 )
+				powers.push_back(pn);
+			}
+			else
+			{
+				flag = 1;
+				for ( it=powers.begin();it!=powers.end();++it )
 				{
-					int64_t m = b/k;
-					int64_t kp	=	pow((double)a,(double)k);
-					int64_t mp	=	pow((double)a,(double)m);
-					if ( find(powers.begin(),powers.end(),std::make_pair(kp,m))!=powers.end() )
+					if(isPowerEqual(*it,pn))
 					{
-						++ct;
-						//continue;
+						flag	=	0;
+						break;
 					}
-					else if ( kp>0 && kp<=100 )
-					{
-						++ct;
-						powers.push_back(std::make_pair(kp,m));
-						//std::cout<<"<"<<kp<<","<<m<<">,";
-					}
-					if ( find(powers.begin(),powers.end(),std::make_pair(mp,k))!=powers.end() )
-					{
-						++ct;
-						//continue;
-					}
-					else if ( mp>0 && mp<=100 )
-					{
-						++ct;
-						powers.push_back(std::make_pair(mp,k));
-						//std::cout<<"<"<<mp<<","<<k<<">,";
-					}
+				}
+				if ( flag )
+				{
+					powers.push_back(pn);
 				}
 			}
 		}
 	}
-	std::cout<<ct<<std::endl;
-	return	count;
+	//std::cout<<ct<<std::endl;
+	return	powers.size();
+}
+
+int isFifthPowersDigits(int n)
+{
+	int a,b,c,d,e,f;
+	a = n/100000;
+	b = n%100000/10000;
+	c = n%10000/1000;
+	d = n%1000/100;
+	e = n%100/10;
+	f = n%10;
+	if ( pow((double)a,5)+pow((double)b,5)+pow((double)c,5)+pow((double)d,5)+pow((double)e,5)+pow((double)f,5)==n )
+	{
+		return 1;
+	}
+	else
+		return 0;
+}
+
+//30.
+int	sumOfDigitFifthPowers()
+{
+	std::vector<int>	v;
+	int sum = 0;
+	for ( int i=2;i<900000;++i )
+	{
+		if ( isFifthPowersDigits(i) )
+		{
+			v.push_back(i);
+		}
+	}
+	for ( std::vector<int>::iterator it = v.begin();it!=v.end();++it )
+	{
+		std::cout<<*it<<" ";
+		sum += *it;
+	}
+	return sum;
 }
 
 void main()
 {
-	//29.
-	std::cout<<distinctPowers()<<std::endl;
+	//30.
+	std::cout<<sumOfDigitFifthPowers()<<std::endl;
 
 	//28.
 	/*std::cout<<sumOfNumberSpiralDiagonals()<<std::endl;*/
