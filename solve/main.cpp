@@ -787,7 +787,7 @@ int	sumOfDigitFifthPowers()
 {
 	std::vector<int>	v;
 	int sum = 0;
-	for ( int i=2;i<900000;++i )
+	for ( int i=2;i<900000;++i )	//	上界问题？The maximum value for one digit is 9^5 = 59049.Let's say we're gonna check the number 123456789. That's 9 digits, so the maximum sum would be 9*59049 = 531441
 	{
 		if ( isFifthPowersDigits(i) )
 		{
@@ -802,10 +802,40 @@ int	sumOfDigitFifthPowers()
 	return sum;
 }
 
+//31.( steal!!!!!   http://www.mathblog.dk/project-euler-31-combinations-english-currency-denominations/ )
+int waysOfCoinSums()
+{
+	int targetNum	=	200;
+	int engCorrency[]	=	{1,2,5,10,20,50,100,200};
+	//int way[targetNum+1]=	{0};
+	int *way	 =	new int[targetNum + 1];
+	way[0]	=	1;
+	for ( int i = 1;i<=targetNum;++i )
+	{
+		way[i]	=	0;
+	}
+	int len	=	sizeof(engCorrency)/sizeof(engCorrency[0]);
+	for ( int i = 0;i<len;++i )
+	{
+		for ( int j=engCorrency[i];j<=targetNum;++j )
+		{
+			if ( j==200 )
+			{	//展示一下部分计算过程
+				std::cout<<"way[200]="<<way[200]<<" ,way["<<j-engCorrency[i]<<"]="<<way[j-engCorrency[i]]<<std::endl;
+			}
+			way[j] += way[j-engCorrency[i]];
+		}
+	}
+	return	way[targetNum];
+}
+
 void main()
 {
+	//31.
+	std::cout<<waysOfCoinSums()<<std::endl;
+
 	//30.
-	std::cout<<sumOfDigitFifthPowers()<<std::endl;
+	/*std::cout<<sumOfDigitFifthPowers()<<std::endl;*/
 
 	//28.
 	/*std::cout<<sumOfNumberSpiralDiagonals()<<std::endl;*/
