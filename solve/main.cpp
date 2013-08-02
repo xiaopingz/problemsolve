@@ -10,6 +10,7 @@
 #include <set>		//29.
 #include <cstdint>
 #include"largeNum.h"	//13.
+#include "TemplateClass.h"
 
 
 int	findGreatestConsecutive(int a[], int len)
@@ -831,8 +832,15 @@ int waysOfCoinSums()
 
 void main()
 {
+	TemplateClass<int,int> a(1,2);
+	a.showContents();
+	TemplateClass<int,char> b(1,'b');
+	b.showContents();
+	TemplateClass<double,char> c(3.2,'c');
+	c.showContents();
+
 	//31.
-	std::cout<<waysOfCoinSums()<<std::endl;
+	/*std::cout<<waysOfCoinSums()<<std::endl;*/
 
 	//30.
 	/*std::cout<<sumOfDigitFifthPowers()<<std::endl;*/
