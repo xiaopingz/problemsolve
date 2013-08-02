@@ -631,7 +631,7 @@ void	lexicographicPermutations2(char *a, int n)
 //求d的位数（10进制）----未用到
 int		digitNumbers(int d)
 {
-	char	a[4];
+	char	a[8];
 	int		n;
 	n	=	sprintf(a,"%d",d);
 	return	n;
@@ -830,30 +830,48 @@ int waysOfCoinSums()
 	return	way[targetNum];
 }
 
+//34.各位之阶乘之和是否等于其自身
+int isDigitFactorial(int a)
+{
+	int n =	digitNumbers(a);
+	int sum = 0, t = a;
+	for (int i=n;i>0;--i)
+	{
+		sum	+= factorial(t/pow((double)10,i-1));
+		t	=	t%(int)pow((double)10,i-1);
+	}
+	if ( sum==a )
+		return	1;
+	else
+		return	0;
+}
+
+//34.
+int sumOfDigitFactorials()
+{
+	int	n	=	1000000;	//	上界是多少？
+	int sum =	0;
+	for ( int i=3;i<n;++i )
+	{
+		if (isDigitFactorial(i))
+		{
+			sum		+=	i;
+		}
+	}
+	return	sum;
+}
+
 void main()
 {
-	TemplateClass<int,int> a(1,2);
+
+	/*TemplateClass<int,int> a(1,2);
 	a.showContents();
-	TemplateClass<int,char> b(1,'b');
+	TemplateClass<int,char> b(1,70);
 	b.showContents();
 	TemplateClass<double,char> c(3.2,'c');
-	c.showContents();
+	c.showContents();*/
 
-	//31.
-	/*std::cout<<waysOfCoinSums()<<std::endl;*/
-
-	//30.
-	/*std::cout<<sumOfDigitFifthPowers()<<std::endl;*/
-
-	//28.
-	/*std::cout<<sumOfNumberSpiralDiagonals()<<std::endl;*/
-
-	//27.
-	/*std::cout<<formulaOfQuadraticPrimes()<<std::endl;*/
-
-	//26.
-	/*int i = 9;
-	std::cout<<longestRecurringCycle();*/
+	std::cout<<sumOfDigitFactorials()<<std::endl;
 
 	//25.
 	/*largeNum	sum, t,k;
@@ -874,21 +892,12 @@ void main()
 
 	//std::cout<<a<<std::endl;
 	
-	//23.
-	/*std::cout<<sumOfNonANSum()<<std::endl;*/
-
 	//22.
 	/*std::ifstream	file("names.txt");
 	std::string	str;
 	file>>str;
 	MapWWPtr	pMapWW	=	makeWordsMap(str);
 	std::cout<<sumOfNameScores(pMapWW)<<std::endl;*/
-
-	//21.
-	/*std::cout<<sumOfAmicableNumbers()<<std::endl;*/
-
-	//19.
-	//std::cout<<sundayCounts()<<std::endl;
 
 	//20.
 	//largeNum	num;	//	N=200, init stores 1. (LargeNum is so wonderful!!)
