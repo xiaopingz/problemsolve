@@ -1,5 +1,5 @@
 #include "head_info.h"
-
+#include "largeNum.h"
 
 int	findGreatestConsecutive(int a[], int len)
 {
@@ -21,7 +21,9 @@ int isPrimeNum(int n)
 {
 	int flag=1, a;
 	a = sqrt((double)n);
-	for ( int i=2;i<=a;++i )
+	if ( n<2 )
+		flag	=	0;
+	else for ( int i=2;i<=a;++i )
 	{
 		if ( n%i==0 )
 		{
@@ -613,6 +615,42 @@ void	lexicographicPermutations2(char *a, int n)
 	std::cout<<c<<std::endl;
 }
 
+void		findLargestPandigitalPrime(char *a, int n)
+{
+	int		max=0,t;
+	for ( int i=4;i<n;++i )
+	{
+		char *b	=	(char *)malloc(i*sizeof(char));
+		memcpy(b,a,i);
+		std::sort(b,b+i);
+		do 
+		{
+			t	=	strToInt(b,i);
+			if ( !isPrimeNum(t) )
+				continue;
+			else if ( t>max )
+				max = t;
+		} while (std::next_permutation(b,b+i));
+
+	}
+	std::cout<<max<<std::endl;
+}
+
+void	sumOfSubStrDivisible(char *a, int n)
+{
+	largeNum sum;	//这里是初始化为1了，最后结果减1就可以了
+	std::sort(a,a+n);
+	do 
+	{
+		if ( isSubStrDivisible(a,n) )
+		{
+			largeNum	t(a);
+			sum.add(t);
+		}
+	} while (std::next_permutation(a,a+n));
+	sum.show();
+}
+
 //求d的位数（10进制）----未用到
 int		digitNumbers(int d)
 {
@@ -910,6 +948,31 @@ int numOfCirclePrimes(int n)
 	return	count;
 }
 
+bool	isTrancatablePrime(int n)
+{
+	if ( !isPrimeNum(n) )
+	{
+		return false;
+	}
+	int len	=	digitNumbers(n);
+	char *a	=	intToStr(n);
+	int i;
+	for ( i=0;i<len-1;++i )
+	{
+		a[i]	=	'0';
+		if ( !isPrimeNum(strToInt(a,len)) )
+			return	false;
+	}
+	a	=	intToStr(n);
+	for ( i=len-1;i>0;--i )
+	{
+		a[i]	=	'\0';
+		if (!isPrimeNum(strToInt(a,i)))
+			return	false;
+	}
+	return true;
+}
+
 bool	isPalindromic(char * a,int len)
 {
 	for ( int i=0;i<=len/2;++i )
@@ -945,4 +1008,69 @@ int		sumOfPal(int n)
 		}
 	}
 	return	sum;
+}
+
+bool	isSubStrDivisible(char *a,int len)
+{
+	int	ia[]	=	{2,3,5,7,11,13,17};
+	char b[3]	=	{0};
+	for ( int i=1;i<8;++i )
+	{
+		memcpy(b,a+i,3);
+		if ( strToInt(b,3)%ia[i-1]!=0 )
+			return false;
+	}
+	return true;
+}
+
+int sumOfTrancatablePrimes(int n)
+{
+	int sum = 0;
+	for ( int i=11;i<n;i+=2 )
+	{
+		if (isTrancatablePrime(i))
+		{
+			std::cout<<i<<" ";
+			sum	+=	i;
+		}
+	}
+	return sum;
+}
+
+int minDOfPentagonPairs()
+{
+	int	minD = INT_MAX, td, pos = 1, i;
+	int arrayLen = sqrt((double)INT_MAX);
+	int *a = (int *)malloc(arrayLen*sizeof(int));
+	if ( !a )
+	{
+		std::cout<<"malloc failed"<<std::endl;
+		return -1;
+	}
+	memset(a,0,arrayLen);
+	for ( i=1;pos<minD;++i )
+	{
+		a[pos] = 1;
+		pos = (i*3-1)*i/2;
+	}
+	std::cout<<i<<std::endl;
+	for ( i=0;i<arrayLen;++i )
+	{
+		if ( a[i]==1 )
+			for ( int j=i+1;j<arrayLen;++j )
+			{
+				if ( a[j]==1 )
+				{
+					if ( a[i+j]==1 && a[j-i]==1 )
+					{
+						td = j-i;
+						if ( td<minD )
+						{
+							minD = td;
+						}
+					}
+				}
+			}
+	}
+	return minD;
 }

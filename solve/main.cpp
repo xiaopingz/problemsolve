@@ -14,7 +14,7 @@ void main()
 	TemplateClass<double,char> c(3.2,'c');
 	c.showContents();*/
 
-	std::cout<<sumOfPal(1000000)<<std::endl;
+	std::cout<<minDOfPentagonPairs()<<std::endl;
 
 	//25.
 	/*largeNum	sum, t,k;
@@ -29,9 +29,9 @@ void main()
 	}
 	std::cout<<count<<std::endl;*/
 
-	//24.
+	//24.41.43.
 	/*char a[11]	=	{ '0','1','2','3','4','5','6','7','8','9','\0' };
-	lexicographicPermutations2(a,10);*/
+	sumOfSubStrDivisible(a,10);*/
 
 	//std::cout<<a<<std::endl;
 	

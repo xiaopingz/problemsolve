@@ -72,6 +72,14 @@ void	largeNum::showFirstTen()
 	}
 }
 
+void	largeNum::show()
+{
+	for ( int i=0;i<N;++i )
+	{
+		std::cout<<m_cNum[i]+'0'-48;
+	}
+}
+
 void	largeNum::copy(largeNum n)
 {
 	for ( int i=0;i<N;++i )
