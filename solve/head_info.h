@@ -20,6 +20,10 @@ bool	isCirclePrime(int n);			//n的各位全排列之后的数字均为素数
 int		numOfCirclePrimes(int n);		//小于n的circle prime的个数			//35.
 bool	isTrancatablePrime(int n);		//从左右依次截断是否都是素数（37）
 
+//数学公式相关
+bool	isPentagonalNumber(int n);		//pentagonal number:Pn=n(3n?1)/2
+bool	isHexagonalNumber(int n);		//Hexagonal number:	Hn=n(2n?1)
+
 //将二维的数组的下标转换为对应的一维数组的下标
 int transform(int n, int i, int j );	//n为方阵的阶数，即方阵为n*n的
 
@@ -105,4 +109,6 @@ int	greatestProduct(int *a, int n);		//同一排相邻位置四个数的乘积最大的		//11.
 int	maxChain();							//14.
 int	maxPathSum(int * a, int n);			//18.
 int sumOfTrancatablePrimes(int n);		//37.
-int minDOfPentagonPairs();				//44.
+int minDOfPentagonPairs();				//44.失败！
+int minDOfPentagonPairs2();				//44.
+int nextTriangleNumber();				//45.

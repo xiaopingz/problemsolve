@@ -973,6 +973,18 @@ bool	isTrancatablePrime(int n)
 	return true;
 }
 
+bool	isPentagonalNumber( long long int n)
+{
+	double	pen = (sqrt((double)(24*n+1))+1)/6;
+	return	pen==(int)pen;
+}
+
+bool	isHexagonalNumber(int n)
+{
+	double	hex = (sqrt((double)(8*n+1))+1)/4;
+	return	hex == (int)hex;
+}
+
 bool	isPalindromic(char * a,int len)
 {
 	for ( int i=0;i<=len/2;++i )
@@ -1039,8 +1051,9 @@ int sumOfTrancatablePrimes(int n)
 
 int minDOfPentagonPairs()
 {
-	int	minD = INT_MAX, td, pos = 1, i;
-	int arrayLen = sqrt((double)INT_MAX);
+	int	minD = INT_MAX, td, pos = 1;
+	int i,s,d;
+	int arrayLen = 30000;
 	int *a = (int *)malloc(arrayLen*sizeof(int));
 	if ( !a )
 	{
@@ -1048,29 +1061,72 @@ int minDOfPentagonPairs()
 		return -1;
 	}
 	memset(a,0,arrayLen);
-	for ( i=1;pos<minD;++i )
+	for ( i=1;pos<minD && pos>0; )
 	{
-		a[pos] = 1;
+		a[i] = pos;
+		++i;
 		pos = (i*3-1)*i/2;
 	}
-	std::cout<<i<<std::endl;
-	for ( i=0;i<arrayLen;++i )
+	for ( i=1;i<arrayLen;++i )
 	{
-		if ( a[i]==1 )
-			for ( int j=i+1;j<arrayLen;++j )
-			{
-				if ( a[j]==1 )
+		//~~~~~~~~~~~~~~~~~~~~~~~好垃圾的方法！！算不出来的~~~~~~~~~~~~~~~~~用数学的方法解！
+		if ( !a[i] )
+			break;
+		for ( int j=i+1;j<arrayLen;++j )
+		{
+			if ( !a[j] )
+				break;
+			else{
+				s = a[i]+a[j];
+				d = a[j]-a[i];
+				int * ps = std::find(a,a+arrayLen,s);
+				int * pd = std::find(a,a+arrayLen,d);
+				if ( ps!=a+arrayLen && pd!=a+arrayLen )
 				{
-					if ( a[i+j]==1 && a[j-i]==1 )
-					{
-						td = j-i;
-						if ( td<minD )
-						{
-							minD = td;
-						}
-					}
+					td = abs(a[j]-a[i]);
+					if ( td<minD )
+						minD = td;
 				}
 			}
+		}
 	}
 	return minD;
+}
+
+int minDOfPentagonPairs2()
+{
+	long long int m=1, n=5;
+	int s,d,i,j;
+	int minD=INT_MAX, td;
+	for ( i=1;i<10000;++i )
+	{
+		m = (3*i-1)*i/2;
+		for ( j=i-1;j>0;--j )
+		{
+			n = (3*j-1)*j/2;
+			if ( isPentagonalNumber(m+n) && isPentagonalNumber(m-n) )
+			{
+				td = abs(n-m);
+				if ( td<minD)
+				{
+					minD = td;
+				}
+			}
+		}
+	}
+	return minD;
+}
+
+int nextTriangleNumber()
+{
+	long long int t=40755,i;
+	for ( i=144;;++i )
+	{
+		t = (2*i-1)*i;
+		if ( isPentagonalNumber(t) )
+		{
+			std::cout<<i<<std::endl;
+			return t;
+		}
+	}
 }

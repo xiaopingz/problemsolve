@@ -1,4 +1,4 @@
-#if 1
+#if 0
 
 #include"largeNum.h"	//13.
 #include "TemplateClass.h"
@@ -14,7 +14,7 @@ void main()
 	TemplateClass<double,char> c(3.2,'c');
 	c.showContents();*/
 
-	std::cout<<minDOfPentagonPairs()<<std::endl;
+	std::cout<<nextTriangleNumber()<<std::endl;
 
 	//25.
 	/*largeNum	sum, t,k;

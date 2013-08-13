@@ -1,38 +1,25 @@
-#if 0
+#if 1
 
 #include "TemplateClass.h"
 #include <iostream>
-
-int toInt(std::string str)
-{
-	int len = str.length();
-	int sum = 0;
-	for ( int i=0;i<len;++i )
-	{
-		if ( str[i]>='0' && str[i]<='9')
-		{
-			str[i]	-=	'0';
-			for ( int j=0;j<i;++j )
-			{
-				str[j]	*= 10;
-			}
-		}
-		else return 0;
-	}
-	for ( int i=0;i<len;++i )
-		sum	+= str[i];
-	return sum;
-}
+#include <WinSock2.h>
 
 void main()
 {
-	std::string nMale;
-	std::cout<<"Please input the numbers of Male & Female to match:"<<std::endl;
-	std::cin>>nMale;
-	int m, f;
-	m = toInt(nMale);
-	//f = toInt(nFemale);
-	std::cout<<m<<std::endl;
+	/* 阻塞地接受一个客户端连接 */
+	SOCKET con = accept( s, 0, 0 ); 
+	/* recv request */
+	char request[1024] = { 0 };
+	ret = recv( con, request, sizeof( request ), 0 );
+	printf( request );
+	/* whatever we recv, we send 200 response */
+	{
+		char content[] = "<head><head><title>index.html</title></head><body>index.html</body>";
+		char response[512];
+		sprintf( response, "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nContent-Length: %d\r\n\r\n%s", strlen( content ), content );
+		ret = send( con, response, strlen( response ), 0 );
+	}
+	closesocket( con ); 
 
 	//enum egg {a,b,c};  
 	//enum egg test; //在这里你可以简写成egg test;  
