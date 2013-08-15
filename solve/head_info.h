@@ -112,3 +112,4 @@ int sumOfTrancatablePrimes(int n);		//37.
 int minDOfPentagonPairs();				//44.Ê§°Ü£¡
 int minDOfPentagonPairs2();				//44.
 int nextTriangleNumber();				//45.
+int minGoldbachOtherConjecture();		//46.

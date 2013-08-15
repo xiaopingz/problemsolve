@@ -1,16 +1,20 @@
-#if 1
+#if 0
 
+#define WIN32_LEAN_AND_MEAN
+#include <WinSock2.h>
+#include <Ws2tcpip.h>
 #include "TemplateClass.h"
 #include <iostream>
-#include <WinSock2.h>
+#pragma comment(lib, "Ws2_32.lib")
 
 void main()
 {
 	/* 阻塞地接受一个客户端连接 */
+	SOCKET s = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 	SOCKET con = accept( s, 0, 0 ); 
 	/* recv request */
 	char request[1024] = { 0 };
-	ret = recv( con, request, sizeof( request ), 0 );
+	int		ret = recv( con, request, sizeof( request ), 0 );
 	printf( request );
 	/* whatever we recv, we send 200 response */
 	{

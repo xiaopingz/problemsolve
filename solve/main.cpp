@@ -1,4 +1,4 @@
-#if 0
+#if 1
 
 #include"largeNum.h"	//13.
 #include "TemplateClass.h"
@@ -14,7 +14,7 @@ void main()
 	TemplateClass<double,char> c(3.2,'c');
 	c.showContents();*/
 
-	std::cout<<nextTriangleNumber()<<std::endl;
+	std::cout<<minGoldbachOtherConjecture()<<std::endl;
 
 	//25.
 	/*largeNum	sum, t,k;

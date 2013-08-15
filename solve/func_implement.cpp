@@ -1130,3 +1130,29 @@ int nextTriangleNumber()
 		}
 	}
 }
+
+int minGoldbachOtherConjecture()
+{
+	int i = 35;
+	while( true )
+	{
+		if ( !isPrimeNum(i) )
+		{
+			int j = 1;
+			int pri = primeNumber(j);
+			do 
+			{
+				double s = sqrt((double)(i-pri)/2);
+				if ( s==(int)s )
+					break;
+				++j;
+				pri = primeNumber(j);
+			} while (pri<i);
+			if ( pri>i )
+			{
+				return i;
+			}
+		}
+		i += 2;
+	}
+}
