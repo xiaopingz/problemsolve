@@ -78,6 +78,7 @@ void	largeNum::show()
 	{
 		std::cout<<m_cNum[i]+'0'-48;
 	}
+	std::cout<<std::endl;
 }
 
 void	largeNum::copy(largeNum n)

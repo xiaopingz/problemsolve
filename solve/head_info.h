@@ -14,8 +14,9 @@ typedef std::shared_ptr<MapWW>	MapWWPtr;
 
 //素数相关
 int isPrimeNum(int n);					// n是否为素数,是，返回1：否，返回0
-long long int sumOfPrime(long int n );	//	小于n的所有素数之和				//10.
-int primeNumber(int n);					//所以素数中，第n个素数是多少			//7.
+long long int sumOfPrime(int n );		//	小于n的所有素数之和				//10.
+long long int sumOfPrime2(int n);		// 用筛素数法来计算和存储小于n的素数
+int primeNumber(int n);					//所有素数中，第n个素数是多少			//7.
 bool	isCirclePrime(int n);			//n的各位全排列之后的数字均为素数
 int		numOfCirclePrimes(int n);		//小于n的circle prime的个数			//35.
 bool	isTrancatablePrime(int n);		//从左右依次截断是否都是素数（37）

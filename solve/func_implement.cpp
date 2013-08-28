@@ -35,7 +35,7 @@ int isPrimeNum(int n)
 }
 
 //10.
-long long int sumOfPrime(long int n )
+long long int sumOfPrime( int n )
 {
 	long long int sum = 0;	//类型很重要
 
@@ -45,6 +45,31 @@ long long int sumOfPrime(long int n )
 		{
 			sum += i;
 		}
+	}
+	return sum;
+}
+
+long long int sumOfPrime2(int n)
+{
+	bool	*flag = (bool *)malloc(n*sizeof(bool));
+	int		*primes = (int *)malloc((n/3+1)	*sizeof(int));
+	int		pi = 0;	//primes里有效元素（素数）的个数
+	long long int sum = 0;
+	memset(flag,false,n);
+	for ( int i=2;i<n;++i )
+	{
+		if ( !flag[i] )
+		{
+			primes[pi++]	=	i;
+			for ( int j=i;j<n;j+=i )
+			{	//素数的倍数，必定不是素数
+				flag[j] = true;
+			}
+		}
+	}
+	for ( int i=0;i<pi;++i )
+	{
+		sum += primes[i];
 	}
 	return sum;
 }
